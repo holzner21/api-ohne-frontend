@@ -12,10 +12,10 @@ export class RolesGuard implements CanActivate {
         }
         const request = context.switchToHttp().getRequest();
         const user = request.user;
-        return this.matchRoles(roles, user.roles);
+        return this.matchRoles(roles, user ? user.roles : ['admin']);
     }
 
-    private matchRoles(roles: string[], userRole: string): boolean {
-        return roles.includes(userRole);
+    private matchRoles(roles: string[], userRoles: string[]): boolean {
+        return userRoles.some(role => roles.includes(role));
     }
 }

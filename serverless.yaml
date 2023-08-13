@@ -1,0 +1,21 @@
+service: cats-backend
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: asw
+  runtime: nodejs18.x
+
+functions:
+  main:
+    handler: dist/serverless.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
